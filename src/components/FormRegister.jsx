@@ -7,12 +7,12 @@ import { toast } from "react-toastify";
 
 import Loader from "./loader/Loader.jsx";
 
-import { loginService } from "../services/auth.services.js";
+import { registerService } from "../services/auth.services.js";
 
 import { AuthContext } from "../context/Auth.context.jsx";
 
 
-const FormLogin = () => {
+const FormRegister = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     
@@ -23,24 +23,27 @@ const FormLogin = () => {
 
     const navigate = useNavigate();
 
-    const login = handleSubmit(async(data) => {
+    const handleRegister = handleSubmit(async(data) => {
+        
         setLoading(true);
 
-        const loginResponse = await loginService(data);
+        data.estado  = false;
+        data.cartas = [];
+
+        const registerResponse = await registerService(data);
 
         try {
-            
-            setUser(loginResponse.data.data);
-            setIsAuthenticated(true);
+            setUser(null)
+            setIsAuthenticated(false);
             setLoading(false);
-            toast.success("¡Sesion iniciada correctamente!");
-            navigate("/");
+            toast.success("¡Usuario registrado correctamente!");
+            navigate("/login");
 
         } catch (error) {
             setUser(null);
             setIsAuthenticated(false);
             setLoading(false);
-            if(!loginResponse.status || loginResponse.status !== 200) return toast.error(loginResponse.response.data.message);
+            if(!registerResponse.status || registerResponse.status !== 201) return toast.error(registerResponse.response.data.message);
         }
         
     });
@@ -49,15 +52,15 @@ const FormLogin = () => {
         <div className="w-full max-w-[80%] p-4 flex flex-col">
             { loading && <Loader/> }
             <div className="flex flex-col gap-2">
-                <h1 className="text-4xl font-bold">¡Bienvenido de vuelta!</h1>
-                <p className="text-lg text-gray-600">Te estabamos esperando.</p>
+                <h1 className="text-4xl font-bold">¡Te estabamos esperando!</h1>
+                <p className="text-lg text-gray-600">Bienvenido, crea una cuenta gratis.</p>
             </div>
 
             <form
                 className="mt-8"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    login();
+                    handleRegister();
                 }}
             >
 
@@ -81,6 +84,46 @@ const FormLogin = () => {
                         }
                     />
                     { errors.email && <span className="text-red-500 block">{errors.email.message}</span> }
+                </div>
+
+                <div className="w-full mb-4">
+                    <label className="mb-1 block font-medium">Nombre completo*</label>
+                    <input
+                        className="border-gray-300 border w-full p-3 rounded-lg outline-none transition-all focus:bg-gray-100"
+                        type="text"
+                        placeholder="Carlos Perez"
+                        {
+                            ...register("nombreCompleto", {
+                                required: {
+                                    value: true,
+                                    message: "Este campo es obligatorio."
+                                }
+                            })
+                        }
+                    />
+                    { errors.nombreCompleto && <span className="text-red-500 block">{errors.nombreCompleto.message}</span> }
+                </div>
+
+                <div className="w-full mb-4">
+                    <label className="mb-1 block font-medium">Numero de telefono*</label>
+                    <input
+                        className="border-gray-300 border w-full p-3 rounded-lg outline-none transition-all focus:bg-gray-100"
+                        type="text"
+                        placeholder="3137275474"
+                        {
+                            ...register("telefono", {
+                                required: {
+                                    value: true,
+                                    message: "Este campo es obligatorio."
+                                },
+                                pattern: {
+                                    value: /^\d+$/,
+                                    message: 'Por favor, ingrese un número entero válido.'
+                                }
+                            })
+                        }
+                    />
+                    { errors.telefono && <span className="text-red-500 block">{errors.telefono.message}</span> }
                 </div>
 
                 <div className="w-full relative">
@@ -113,15 +156,17 @@ const FormLogin = () => {
                 </div>
 
                 <div className="pt-7">
-                    <button className="transition-all bg-dark text-white hover:tracking-wider hover:shadow-xl w-full font-semibold py-3 rounded-lg">Ingresar</button>
+                    <button className="transition-all bg-dark text-white hover:tracking-wider hover:shadow-xl w-full font-semibold py-3 rounded-lg">Registrarme</button>
                 </div>
 
             </form>
+            
             <div className="mt-4">
-                <p className="text-center text-gray-600">¿No tienes una cuenta? <Link className="text-black font-semibold" to="/register">Registrarme</Link></p>
+                <p className="text-center text-gray-600">¿Ya tienes una cuenta? <Link className="text-black font-semibold" to="/login">Iniciar Sesion</Link></p>
             </div>
+
         </div>
     );
 }
 
-export default FormLogin;
+export default FormRegister;
