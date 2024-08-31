@@ -33,7 +33,6 @@ const FormLogin = () => {
             setUser(loginResponse.data.data);
             setIsAuthenticated(true);
             setLoading(false);
-            toast.success("¡Sesion iniciada correctamente!");
             navigate("/");
 
         } catch (error) {

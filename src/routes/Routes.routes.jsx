@@ -8,6 +8,7 @@ const Register = lazy(() => import("../pages/Register.jsx"));
 const Home = lazy(() => import("../pages/Home.jsx"));
 const Options = lazy(() => import("../pages/Options.jsx"));
 const Play = lazy(() => import("../pages/Play.jsx"));
+const Users = lazy(() => import("../pages/Users.jsx"));
 
 
 const AllRoutes = () => {
@@ -23,6 +24,7 @@ const AllRoutes = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/play" element={<Play/>}/>
                     <Route path="/options" element={<Options/>}/>
+                    <Route path="/users" element={<Users/>}/>
                 </Route>
             </Routes>
         </Suspense>

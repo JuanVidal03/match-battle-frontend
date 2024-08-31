@@ -18,7 +18,6 @@ export const registerService = async(credentials) => {
         return response;
 
     } catch (error) {
-        console.log(error);
         return error;
     }
 }
@@ -27,6 +26,17 @@ export const verifyTokenService = async() => {
     try {
         
         const response = await axios.get("/verify-token");
+        return response;
+
+    } catch (error) {
+        return error;
+    }
+}
+
+export const logoutService = async(id) => {
+    try {
+
+        const response = await axios.post(`/logout/${id}`);
         return response;
 
     } catch (error) {
