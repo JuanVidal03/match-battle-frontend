@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "dark": "#1e1e1e"
+        "dark": "#1e1e1e",
+        "dark-gradient": "rgba(0, 0, 0, 0.442)"
       },
       borderRadius: {
         "custom-border-radius": "30% 70% 67% 33% / 30% 39% 61% 70%",

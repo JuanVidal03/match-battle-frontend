@@ -32,6 +32,14 @@ const GlobalContextProvider = ({ children }) => {
 
     }, []);
 
+
+    // check if the partida end
+    useEffect(() => {
+        
+        console.log("mapeando la partida");
+
+    }, []);
+
     return (
         <GlobalContext.Provider value={{
             modalState,

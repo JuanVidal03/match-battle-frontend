@@ -22,7 +22,7 @@ const AllRoutes = () => {
                 {/* private routes */}
                 <Route element={<PrivateRoutes/>}>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/play" element={<Play/>}/>
+                    <Route path="/play/:id" element={<Play/>}/>
                     <Route path="/options" element={<Options/>}/>
                     <Route path="/users" element={<Users/>}/>
                 </Route>

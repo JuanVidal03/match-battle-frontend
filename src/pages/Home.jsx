@@ -1,4 +1,4 @@
-import { Suspense, lazy, useContext } from 'react';
+import { Suspense, lazy, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faLayerGroup, faGamepad } from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +15,7 @@ const Home = () => {
     const { setModalState, modalState } = useContext(GlobalContext);
 
     const openModal = () => setModalState(true);
+
 
     return (
         <Suspense>

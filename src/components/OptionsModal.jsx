@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmarkCircle, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 
+import socket from "../../utils/socket";
+
 import { GlobalContext } from "../context/Global.context";
 
 import { createPartida } from "../services/partida.services";

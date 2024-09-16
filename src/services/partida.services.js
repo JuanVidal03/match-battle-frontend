@@ -11,12 +11,10 @@ export const createPartida = async(partida) => {
     }
 }
 
-
 export const getPartidaById = async(idPartida) => {
     try {
-        
-        const response = await axios.get(`/patida/${id}`);
-        console.log(response);
+
+        const response = await axios.get(`/partida/${idPartida}`);
         return response;
 
     } catch (error) {
